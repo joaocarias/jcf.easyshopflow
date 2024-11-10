@@ -1,1 +1,1 @@
-# jcf.easyshopflow
+# JCF Easy Shop Flow
