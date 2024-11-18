@@ -5,6 +5,7 @@ namespace Jcf.EasyShopFlow.Core.Entities
 {
     public abstract class EntityBase
     {
+        [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
@@ -12,6 +13,7 @@ namespace Jcf.EasyShopFlow.Core.Entities
         [Required]
         public bool IsActive { get; private set; } = true;
 
+        [Required]
         public DateTime CreateAt { get; private set; } = DateTime.Now;
 
         [ForeignKey(nameof(UserCreateId))]

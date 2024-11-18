@@ -20,7 +20,7 @@ namespace Jcf.EasyShopFlow.Core.Entities
         [StringLength(255)]
         public string Login {  get; private set; }
 
-        public User(string name, string email, string password, string login)
+        public User(string name, string email, string password, string login) : base()
         {
             Name = name;
             Email = email;
@@ -28,7 +28,7 @@ namespace Jcf.EasyShopFlow.Core.Entities
             Login = login;
         }
 
-        private User()
+        private User() : base()
         {
             Name = string.Empty;
             Email = string.Empty;
