@@ -14,12 +14,16 @@ namespace Jcf.EasyShopFlow.Core.Entities
 
         public DateTime CreateAt { get; private set; } = DateTime.Now;
 
+        [ForeignKey(nameof(UserCreateId))]
         public User? UserCreate { get; private set; } 
+        public Guid? UserCreateId { get; private set; }
 
         public DateTime? UpdateAt { get; private set; }
 
+        [ForeignKey(nameof(UserUpdateId))]
         public User? UserUpdate { get; private set; }
-        
+        public Guid? UserUpdateId { get; private set; }
+
         public EntityBase() { }
     }
 }
