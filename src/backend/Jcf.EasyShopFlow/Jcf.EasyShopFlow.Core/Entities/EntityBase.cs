@@ -27,5 +27,12 @@ namespace Jcf.EasyShopFlow.Core.Entities
         public Guid? UserUpdateId { get; private set; }
 
         public EntityBase() { }
+
+        public void Delete(Guid? userUpdateId = null)
+        {
+            UpdateAt = DateTime.UtcNow;
+            IsActive = false;
+            UserUpdateId = userUpdateId;
+        }
     }
 }
