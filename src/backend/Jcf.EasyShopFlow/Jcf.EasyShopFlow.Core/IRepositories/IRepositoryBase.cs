@@ -5,7 +5,7 @@
         Task<T?> CreateAsync(T entity);
         bool Delete(T entity);
         Task<T?> GetAsync(Guid id);
-        Task<ICollection<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync();
         T? Update(T entity);        
     }
 }

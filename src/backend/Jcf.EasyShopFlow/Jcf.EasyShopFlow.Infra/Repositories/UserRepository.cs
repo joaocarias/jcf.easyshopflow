@@ -2,6 +2,8 @@
 using Jcf.EasyShopFlow.Core.IRepositories;
 using Jcf.EasyShopFlow.Infra.Contexts;
 using Microsoft.Extensions.Logging;
+using Dapper;
+using Jcf.EasyShopFlow.Infra.Uties.Queries;
 
 namespace Jcf.EasyShopFlow.Infra.Repositories
 {
@@ -47,19 +49,52 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
         }
 
-        public Task<ICollection<User>> GetAllAsync()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {                                
+                var result = await _appDapperContext.Connection.QueryAsync<User>(UserQuery.GET_ALL, null, _appDapperContext.Transaction);
+                return result ?? Enumerable.Empty<User>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAllAsync)}] {ex.Message}");
+                return Enumerable.Empty<User>();
+            } 
         }
 
-        public Task<User?> GetAsync(Guid id)
+        public async Task<User?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {               
+                var result = await _appDapperContext.Connection.QueryFirstOrDefaultAsync<User>(
+                    UserQuery.GET,
+                    new { Id = id },
+                    _appDapperContext.Transaction
+                );
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAsync)}] {ex.Message}");
+                return null;
+            }
         }
 
         public User? Update(User entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _appDbContext.Users.Update(entity);
+                _appDbContext.SaveChanges();
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(Update)}] {ex.Message}");
+                return null;
+            }
         }
     }
 }
