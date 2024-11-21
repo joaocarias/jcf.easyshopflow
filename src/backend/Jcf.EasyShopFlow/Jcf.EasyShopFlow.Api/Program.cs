@@ -1,5 +1,8 @@
 using Jcf.EasyShopFlow.Infra.Contexts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var consoleLogger = LoggerFactory.Create(b => b.AddConsole());
 
@@ -22,6 +25,24 @@ builder.Services.AddDbContext<AppDbContext>(
 
 // Add services to the container.
 
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    o =>
+    {
+        o.TokenValidationParameters = new TokenValidationParameters()
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:Jwt:Key"])),
+            ValidAudience = builder.Configuration["Authentication:Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Authentication:Jwt:Issuer"],
+            ValidateIssuerSigningKey = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+        };
+    }
+);
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +59,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

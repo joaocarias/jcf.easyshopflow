@@ -31,7 +31,7 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
             catch (Exception ex) 
             {
-                _logger.LogError($"[{nameof(UserRepository)} - {nameof(CreateAsync)}] {ex.Message}");
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(CreateAsync)}] | {ex.Message}");
                 return null;
             }
         }
@@ -44,7 +44,7 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[{nameof(UserRepository)} - {nameof(Delete)}] {ex.Message}");
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(Delete)}] | {ex.Message}");
                 return false;
             }
         }
@@ -58,7 +58,7 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAllAsync)}] {ex.Message}");
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAllAsync)}] | {ex.Message}");
                 return Enumerable.Empty<User>();
             } 
         }
@@ -76,7 +76,7 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAsync)}] {ex.Message}");
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(GetAsync)}] | {ex.Message}");
                 return null;
             }
         }
@@ -92,7 +92,7 @@ namespace Jcf.EasyShopFlow.Infra.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[{nameof(UserRepository)} - {nameof(Update)}] {ex.Message}");
+                _logger.LogError($"[{nameof(UserRepository)} - {nameof(Update)}] | {ex.Message}");
                 return null;
             }
         }

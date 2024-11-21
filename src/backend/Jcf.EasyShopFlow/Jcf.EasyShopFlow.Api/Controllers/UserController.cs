@@ -1,5 +1,6 @@
 ﻿using Jcf.EasyShopFlow.Api.Models;
 using Jcf.EasyShopFlow.Core.IServices;
+using Jcf.EasyShopFlow.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jcf.EasyShopFlow.Api.Controllers
@@ -36,7 +37,7 @@ namespace Jcf.EasyShopFlow.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError($"[{nameof(UserController)} - {nameof(Get)}] | {ex.Message}");
                 response.IsBadRequest(ex.Message);
                 return BadRequest(response);
             }
