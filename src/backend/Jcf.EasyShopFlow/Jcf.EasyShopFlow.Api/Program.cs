@@ -3,6 +3,7 @@ using Jcf.EasyShopFlow.Infra.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var consoleLogger = LoggerFactory.Create(b => b.AddConsole());
@@ -25,6 +26,42 @@ builder.Services.AddDbContext<AppDbContext>(
 );
 
 builder.Services.AddScoped<AppDapperContext>();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Jcf.EasyShopFlow.Api",
+        Version = "v1",
+        Description = "Desenvolvido em C# - Net 8",
+        Contact = new OpenApiContact
+        {
+            Name = "Joao Carias de Franca",
+            Email = "joaocariasdefranca@gmail.com",
+            Url = new Uri("https://github.com/joaocarias")
+        },
+    });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Description = "Copie 'Bearer ' + token' ",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        BearerFormat = "JWT",
+        Scheme = "Bearer",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            new string[] { }
+        }
+    });
+});
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
     o =>
