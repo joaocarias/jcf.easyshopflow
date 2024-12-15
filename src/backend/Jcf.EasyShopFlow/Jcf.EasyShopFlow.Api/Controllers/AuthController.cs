@@ -37,9 +37,11 @@ namespace Jcf.EasyShopFlow.Api.Controllers
                 if (user == null)
                 {
                     response.IsBadRequest(APIResponseConstants.INVALID_LOGIN);
+                    return BadRequest(response);
                 }
 
-                return Ok(new LoginResponseDTO(true, _mapper.Map<UserDTO>(user), _tokenService.NewToken(user), APIResponseConstants.SUCCESS));
+                response.Result = new LoginResponseDTO(true, _mapper.Map<UserDTO>(user), _tokenService.NewToken(user), APIResponseConstants.SUCCESS);
+                return Ok(response);
             }
             catch (Exception ex)
             {

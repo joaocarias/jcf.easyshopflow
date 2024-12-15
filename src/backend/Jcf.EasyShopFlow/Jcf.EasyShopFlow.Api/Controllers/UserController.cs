@@ -39,7 +39,7 @@ namespace Jcf.EasyShopFlow.Api.Controllers
                     return NotFound(response);
                 }
 
-                response.IsOk(user);
+                response.IsOk(_mapper.Map<UserDTO>(user));
                 return Ok(response);
             }
             catch (Exception ex)
