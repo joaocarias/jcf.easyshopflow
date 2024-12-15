@@ -16,7 +16,7 @@ namespace Jcf.EasyShopFlow.Infra.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User?> Get(Guid id)
+        public async Task<User?> GetAsync(Guid id)
         {
             try
             {
@@ -24,7 +24,20 @@ namespace Jcf.EasyShopFlow.Infra.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[{nameof(UserService)} - {nameof(Get)}] | {ex.Message}");
+                _logger.LogError($"[{nameof(UserService)} - {nameof(GetAsync)}] | {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<User?> CreateAsync(User user)
+        {
+            try
+            {
+                return await _userRepository.CreateAsync(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{nameof(UserService)} - {nameof(GetAsync)}] | {ex.Message}");
                 return null;
             }
         }

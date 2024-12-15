@@ -1,3 +1,4 @@
+using Jcf.EasyShopFlow.Api.Configs;
 using Jcf.EasyShopFlow.Infra.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(
     }
 );
 
-// Add services to the container.
-
+builder.Services.AddScoped<AppDapperContext>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
     o =>
@@ -42,11 +42,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     }
 );
 
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCustomRepositories();
+builder.Services.AddCustomServices(); 
+
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 var app = builder.Build();
 

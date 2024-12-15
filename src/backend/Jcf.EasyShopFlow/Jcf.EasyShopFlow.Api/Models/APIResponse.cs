@@ -37,5 +37,12 @@ namespace Jcf.EasyShopFlow.Api.Models
             StatusCode = HttpStatusCode.BadRequest;
             ErrorMessages.Add(messageError);
         }
+
+        public void IsCreated(Object? result)
+        {
+            IsSuccess = true;
+            Result = result;
+            StatusCode = HttpStatusCode.Created;
+        }
     }
 }

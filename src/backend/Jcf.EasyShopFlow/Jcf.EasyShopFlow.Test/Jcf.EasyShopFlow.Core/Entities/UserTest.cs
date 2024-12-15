@@ -12,7 +12,7 @@ namespace Jcf.EasyShopFlow.Test.Jcf.EasyShopFlow.Core.Entities
         [Fact]
         public void Constructor_ShouldInitializeProperties()
         {
-            User entity = new (_nameUser, _emailUser, _passwordUser, _loginUser);
+            User entity = new (_nameUser, _emailUser, _passwordUser, _loginUser, "BASIC");
             
             Assert.True(entity.IsActive);
             Assert.Equal(DateTime.Now.Date, entity.CreateAt.Date);           

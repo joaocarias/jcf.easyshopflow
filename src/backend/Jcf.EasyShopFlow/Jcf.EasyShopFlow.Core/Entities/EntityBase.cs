@@ -28,6 +28,11 @@ namespace Jcf.EasyShopFlow.Core.Entities
 
         public EntityBase() { }
 
+        public EntityBase(Guid? userCreateId)
+        {
+            UserCreateId = userCreateId;
+        }
+
         public void Delete(Guid? userUpdateId = null)
         {
             UpdateAt = DateTime.UtcNow;
